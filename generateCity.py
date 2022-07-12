@@ -51,7 +51,7 @@ class GenerateCity:
         for i in range(self.numberOfCities):
             self.citiesWithCoordonate['cities'][str(i+1)] = {
                 str('city'): self.generateNameOfCity(),
-                str('pos'): (random.randint(start, end), random.randint(start, end))
+                str('coordinated'): (random.randint(start, end), random.randint(start, end))
             }
 
     def saveCitiesAndCoordonateToJsonFile(self, nameOfFile):

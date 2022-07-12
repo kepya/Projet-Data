@@ -1,10 +1,10 @@
-from distutils.log import error
 import os.path
 from tkinter.ttk import Separator
 import PySimpleGUI as sg
 from numpy import size
 from generateCity import GenerateCity
 from managerApp import ManagerApp
+from showGraph import ShowGraph
 
 errorChooseMenu = ""
 hasGenerate = False
@@ -63,20 +63,26 @@ while True:
     event, values = window.read()
     manager = ManagerApp()
     generateCity = GenerateCity()
+    showGraph = ShowGraph()
 
     # End program if user closes window or
     # presses the OK button
     if event == sg.WIN_CLOSED:
         break
     elif event == "choose":
-        print('You entered ', values[0])
         try:
             option = int(values[0])
+            print('You entered ', values[0])
 
             if option == 1:
                 window['errorChooseMenu'].Update(
                     "")
                 window['rightLay'].Update(visible=True)
+            elif option == 2:
+                showGraph.display()
+                print('You entered ')
+                window['errorChooseMenu'].Update(
+                    "")
         except:
             window['errorChooseMenu'].Update(
                 "Please enter number between 1 and 3")
