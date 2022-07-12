@@ -70,7 +70,8 @@ class ShowGraph:
                 os.makedirs(self.storageOfGraph)
 
             plt.plot(GraphX, GraphY)
-            graphFileName = str(self.storageOfGraph + self.graphName + '.png')
+            graphFileName = str(self.storageOfGraph +
+                                "/" + self.graphName + '.png')
             plt.savefig(graphFileName)
             plt.show()
 
