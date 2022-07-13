@@ -28,23 +28,28 @@ leftLay = [
 
 rigthLay = [
     [sg.Text("How many cities do you want to travele ? ", font=(
-        "Bell MT", 15)), sg.InputText(font=("Bell MT", 15), key='nberCity')],
+        "Bell MT", 15)), sg.InputText(font=("Bell MT", 15), key='numberOfCities')],
     [sg.Text("How many letter the city name can take? ", font=(
-        "Bell MT", 15)), sg.InputText(font=("Bell MT", 15), key='nberLetterCity')],
-    [sg.Text("What are the different objet that you want to deliver ? ", font=("Bell MT", 15)),
-     sg.Multiline(font=("Bell MT", 15))],
+        "Bell MT", 15)), sg.InputText(font=("Bell MT", 15), key='numberOfLetterOfCity')],
     [sg.Text("How many truck you want to used  to do this ? ", font=(
         "Bell MT", 15)), sg.InputText(font=("Bell MT", 15), key='numberOfTruck')],
-    [sg.Text("how many objet the truck can take to deliver ? ",
-             font=("Bell MT", 15)), sg.InputText(font=("Bell MT", 15), key='numberOfObjetDeliverByTruck')],
-    [sg.Text("What quantity of each objet the truck can transport ? ", font=("Bell MT", 15)),
-     sg.InputText(font=("Bell MT", 15), key='numberOfEachObjetDeliverByTruck')],
+
+    # [sg.Text("how many objet the truck can take to deliver ? ",
+    #          font=("Bell MT", 15)), sg.InputText(font=("Bell MT", 15), key='numberOfObjetDeliverByTruck')],
+    # [sg.Text("What are the different objet that you want to deliver ? ", font=("Bell MT", 15)),
+    #  sg.Multiline(font=("Bell MT", 15))],
+    # [sg.Text("What quantity of each objet the truck can transport ? ", font=("Bell MT", 15)),
+    #  sg.InputText(font=("Bell MT", 15), key='numberOfEachObjetDeliverByTruck')],
+
+    [sg.Text("How many iteration you want to do ? ", font=("Bell MT", 15)),
+     sg.InputText(font=("Bell MT", 15), key='numberOfIteration')],
     [sg.Text("Generate file of cities with her coordonate", font=("Bell MT", 15)),
-     sg.Button('Generate', font=("Bell MT", 15))],
+     sg.Button('Generate', font=("Bell MT", 15)), sg.Button('Use existed File', font=("Bell MT", 15))],
     # [sg.Text("\n\n",)],
     [sg.Text("\n",)],
 
-    [sg.Button('Validate', font=("Bell MT", 15))],
+    [sg.Button('Validate', font=("Bell MT", 15)),
+     sg.Button('Reload data', font=("Bell MT", 15))],
     [sg.HSeparator()],
     [sg.Button('Close', font=("Bell MT", 15))]
 ]
@@ -80,9 +85,9 @@ while True:
                     "")
                 window['rightLay'].Update(visible=True)
             elif option == 2:
-                showGraph.display()
+                # showGraph.display()
                 # result = manager.divideDeliveryBetweenTruck()
-                # print('result', result)
+                manager.divideDeliveryBetweenTruck()
                 window['errorChooseMenu'].Update(
                     "")
         except:
@@ -90,28 +95,43 @@ while True:
                 "Please enter number between 1 and 3")
 
     elif event == "Validate":
-        if values["nberCity"] and values["numberOfEachObjetDeliverByTruck"] and values["nberLetterCity"] and values["numberOfObjetDeliverByTruck"] and values["numberOfTruck"]:
+        if values["numberOfCities"] and values["numberOfLetterOfCity"] and values["numberOfTruck"] and values["numberOfIteration"]:
             try:
-                manager.setNumberOfCities(int(values["nberCity"]))
-                manager.setNumberOfEachObjetDeliverByTruck(
-                    int(values["numberOfEachObjetDeliverByTruck"]))
-                manager.setNumberOfLetterOfCity(int(values["nberLetterCity"]))
-                manager.setNumberOfObjetDeliverByTruck(
-                    int(values["numberOfObjetDeliverByTruck"]))
+                manager.setNumberOfCities(int(values["numberOfCities"]))
+                manager.setNumberOfLetterOfCity(
+                    int(values["numberOfLetterOfCity"]))
                 manager.setNumberOfTruck(int(values["numberOfTruck"]))
+                manager.setNumberOfIteration(int(values["numberOfIteration"]))
+
+                # manager.setNumberOfObjetDeliverByTruck(
+                #     int(values["numberOfObjetDeliverByTruck"]))
+                # manager.setNumberOfEachObjetDeliverByTruck(
+                #     int(values["numberOfEachObjetDeliverByTruck"]))
 
                 if hasGenerate == False:
-                    generateCity.setNumberOfCities(int(values["nberCity"]))
+                    generateCity.setNumberOfCities(
+                        int(values["numberOfCities"]))
                     generateCity.setNumberOfLetterOfCity(
-                        int(values["nberLetterCity"]))
+                        int(values["numberOfLetterOfCity"]))
                     generateCity.generateNameOfCity()
                     generateCity.fillCitiesAndCoordonate()
                     filename = sg.PopupGetText(
                         "Enter name of file that we use to store cities with her cordonnate", font=("Bell MT", 15))
                     generateCity.saveCitiesAndCoordonateToJsonFile(filename)
-                    sg.PopupAnimated('Cities generate',
-                                     ' Cities generate succefully !!', font=("Bell MT", 15))
+                    manager.setCityFileName(filename)
+                    cityFileName = filename
+                    sg.PopupOK('Cities generate',
+                               ' Cities generate succefully !!', font=("Bell MT", 15))
                     hasGenerate = True
+
+                manager.saveData()
+
+                if result:
+                    sg.PopupOK('Config Save',
+                               ' Config save succefully !!', font=("Bell MT", 15))
+                else:
+                    sg.PopupError(
+                        'Error', 'save fail', font=("Bell MT", 15))
 
                 window['rightLay'].Update(visible=False)
 
@@ -121,15 +141,45 @@ while True:
         else:
             sg.PopupError(
                 'Error', 'please fill input', font=("Bell MT", 15))
+    elif event == "Reload data":
+        result = manager.loadData()
+        window['numberOfIteration'].Update(
+            manager.getNumberOfIteration())
+        window['numberOfTruck'].Update(
+            manager.getNumberOfTruck())
+        window['numberOfLetterOfCity'].Update(
+            manager.getNumberOfLetterOfCity())
+        cityFileName = manager.getCityFileName()
+        window['numberOfCities'].Update(
+            manager.getNumberOfCities())
+
+        if result:
+            sg.PopupOK('Config Reload',
+                       ' Config reload succefully !!', font=("Bell MT", 15))
+        else:
+            sg.PopupError(
+                'Error', 'reload fail', font=("Bell MT", 15))
+
+        # window['numberOfObjetDeliverByTruck'].Update(
+        #     manager.getNumberOfObjetDeliverByTruck())
+        # window['numberOfEachObjetDeliverByTruck'].Update(
+        #     manager.getNumberOfEachObjetDeliverByTruck())
+
     elif event == "Close":
         window['rightLay'].Update(visible=False)
 
+    elif event == "Use existed File":
+        filename = sg.PopupGetText(
+            "Enter name of file that we want to use to reload data", font=("Bell MT", 15))
+        cityFileName = filename
+        manager.setCityFileName(filename)
+
     elif event == "Generate":
-        if values["nberCity"] and values["nberLetterCity"]:
+        if values["numberOfCities"] and values["numberOfLetterOfCity"]:
             try:
-                generateCity.setNumberOfCities(int(values["nberCity"]))
+                generateCity.setNumberOfCities(int(values["numberOfCities"]))
                 generateCity.setNumberOfLetterOfCity(
-                    int(values["nberLetterCity"]))
+                    int(values["numberOfLetterOfCity"]))
                 generateCity.generateNameOfCity()
                 generateCity.fillCitiesAndCoordonate()
                 filename = sg.PopupGetText(

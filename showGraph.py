@@ -71,7 +71,7 @@ class ShowGraph:
             plt.plot(GraphX, GraphY)
             graphFileName = str(self.storageOfGraph +
                                 "/" + self.graphName + '.png')
-            # plt.savefig(graphFileName)
+            plt.savefig(graphFileName)
             plt.show()
 
         except (OSError, IOError) as e:
