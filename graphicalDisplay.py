@@ -1,4 +1,5 @@
 import os.path
+import time
 from tkinter.ttk import Separator
 import PySimpleGUI as sg
 from numpy import size
@@ -66,6 +67,10 @@ manager = ManagerApp()
 generateCity = GenerateCity()
 showGraph = ShowGraph()
 
+# Début du comptage du temps d'exécution
+startAppTime = time.time()
+startTime = 0
+
 
 def main():
     manager = ManagerApp()
@@ -94,7 +99,10 @@ while True:
                 window['errorChooseMenu'].Update(
                     "")
                 window['rightLay'].Update(visible=True)
+                startTime = 0
+
             elif option == 2:
+                startTime = time.time()
                 # showGraph.display()
                 # result = manager.divideDeliveryBetweenTruck()
                 manager.divideDeliveryBetweenTruck()
@@ -128,8 +136,9 @@ while True:
                     filename = sg.PopupGetText(
                         "Enter name of file that we use to store cities with her cordonnate", font=("Bell MT", 15))
                     generateCity.saveCitiesAndCoordonateToJsonFile(filename)
-                    manager.setCityFileName(filename)
-                    cityFileName = filename
+                    manager.setCityFileName(
+                        "./dataset/cities/" + filename + ".json")
+                    cityFileName = "./dataset/cities/" + filename + ".json"
                     sg.PopupOK('Cities generate',
                                ' Cities generate succefully !!', font=("Bell MT", 15))
                     hasGenerate = True
@@ -181,8 +190,8 @@ while True:
     elif event == "Use existed File":
         filename = sg.PopupGetText(
             "Enter name of file that we want to use to reload data", font=("Bell MT", 15))
-        cityFileName = filename
-        manager.setCityFileName(filename)
+        manager.setCityFileName("./dataset/cities/" + filename + ".json")
+        cityFileName = "./dataset/cities/" + filename + ".json"
 
     elif event == "Generate":
         if values["numberOfCities"] and values["numberOfLetterOfCity"]:
@@ -194,8 +203,10 @@ while True:
                 generateCity.fillCitiesAndCoordonate()
                 filename = sg.PopupGetText(
                     "Enter name of file that we use to store cities with her cordonnate", font=("Bell MT", 15))
-                cityFileName = filename
-                manager.setCityFileName(filename)
+                manager.setCityFileName(
+                    "./dataset/cities/" + filename + ".json")
+                cityFileName = "./dataset/cities/" + filename + ".json"
+
                 generateCity.saveCitiesAndCoordonateToJsonFile(filename)
                 sg.PopupOK('Cities generate',
                            ' Cities generate succefully !!', font=("Bell MT", 15))

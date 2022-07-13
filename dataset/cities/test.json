@@ -1,1 +1,179 @@
-{"cities": {"1": {"city": "tsmvv", "coordinated": [33, 44]}, "2": {"city": "uzzxm", "coordinated": [14, 1]}, "3": {"city": "vrjzs", "coordinated": [22, 54]}, "4": {"city": "zzwgn", "coordinated": [22, 0]}, "5": {"city": "hzrzj", "coordinated": [42, 6]}, "6": {"city": "zpfdp", "coordinated": [8, 49]}, "7": {"city": "ktsax", "coordinated": [57, 49]}, "8": {"city": "ahwja", "coordinated": [21, 40]}, "9": {"city": "zsrhu", "coordinated": [55, 22]}, "10": {"city": "nhhxn", "coordinated": [2, 17]}, "11": {"city": "qfrmr", "coordinated": [29, 43]}, "12": {"city": "accjp", "coordinated": [42, 4]}, "13": {"city": "xrule", "coordinated": [8, 24]}, "14": {"city": "lahlw", "coordinated": [21, 37]}, "15": {"city": "aonaj", "coordinated": [58, 34]}}}
+{
+    "cities": {
+        "1": {
+            "city": "aab",
+            "coordinated": [
+                66,
+                44
+            ]
+        },
+        "2": {
+            "city": "yua",
+            "coordinated": [
+                1,
+                54
+            ]
+        },
+        "3": {
+            "city": "uhj",
+            "coordinated": [
+                5,
+                46
+            ]
+        },
+        "4": {
+            "city": "cep",
+            "coordinated": [
+                46,
+                89
+            ]
+        },
+        "5": {
+            "city": "phb",
+            "coordinated": [
+                84,
+                67
+            ]
+        },
+        "6": {
+            "city": "czw",
+            "coordinated": [
+                34,
+                73
+            ]
+        },
+        "7": {
+            "city": "anl",
+            "coordinated": [
+                50,
+                77
+            ]
+        },
+        "8": {
+            "city": "vfb",
+            "coordinated": [
+                60,
+                53
+            ]
+        },
+        "9": {
+            "city": "lvm",
+            "coordinated": [
+                97,
+                67
+            ]
+        },
+        "10": {
+            "city": "ryi",
+            "coordinated": [
+                6,
+                61
+            ]
+        },
+        "11": {
+            "city": "kxs",
+            "coordinated": [
+                28,
+                97
+            ]
+        },
+        "12": {
+            "city": "rwh",
+            "coordinated": [
+                90,
+                49
+            ]
+        },
+        "13": {
+            "city": "onf",
+            "coordinated": [
+                38,
+                32
+            ]
+        },
+        "14": {
+            "city": "mve",
+            "coordinated": [
+                72,
+                39
+            ]
+        },
+        "15": {
+            "city": "dqu",
+            "coordinated": [
+                15,
+                13
+            ]
+        },
+        "16": {
+            "city": "kvz",
+            "coordinated": [
+                96,
+                91
+            ]
+        },
+        "17": {
+            "city": "pbk",
+            "coordinated": [
+                58,
+                37
+            ]
+        },
+        "18": {
+            "city": "lpf",
+            "coordinated": [
+                44,
+                53
+            ]
+        },
+        "19": {
+            "city": "xnu",
+            "coordinated": [
+                69,
+                47
+            ]
+        },
+        "20": {
+            "city": "hjd",
+            "coordinated": [
+                18,
+                83
+            ]
+        },
+        "21": {
+            "city": "rtb",
+            "coordinated": [
+                52,
+                39
+            ]
+        },
+        "22": {
+            "city": "vcz",
+            "coordinated": [
+                59,
+                61
+            ]
+        },
+        "23": {
+            "city": "krg",
+            "coordinated": [
+                16,
+                64
+            ]
+        },
+        "24": {
+            "city": "xhd",
+            "coordinated": [
+                95,
+                87
+            ]
+        },
+        "25": {
+            "city": "qef",
+            "coordinated": [
+                16,
+                34
+            ]
+        }
+    }
+}

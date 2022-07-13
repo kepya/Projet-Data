@@ -3,6 +3,7 @@
 import copy
 import math
 import random
+from re import A, X
 import string
 
 # JSON lib
@@ -33,6 +34,7 @@ class ManagerApp:
         self.numberOfEachObjetDeliverByTruck = numberOfEachObjetDeliverByTruck
         self.cityFileName = "./dataset/cities/test.json"
         self.loadFile = "./dataset/load.json"
+        self.depart = 0
 
     def __init__(self):
         self.numberOfCities = 0
@@ -43,6 +45,7 @@ class ManagerApp:
         self.numberOfIteration = 1
         self.cityFileName = "./dataset/cities/test.json"
         self.loadFile = "./dataset/load.json"
+        self.depart = 0
 
     def loadData(self):
         try:
@@ -149,6 +152,26 @@ class ManagerApp:
 
         return col
 
+    def getCitiesByCoodonate(self, cities, coordonnate):
+        print("test 3 : ", coordonnate)
+        print("test 3 : ", coordonnate[0])
+        try:
+            lengthOfCity = int(len(cities))
+            city = ""
+
+            for v in range(lengthOfCity):
+                result = cities[str(v + 1)]["coordinated"]
+                print('result: ', result)
+                print('result: ', result[0])
+
+                if int(result[0]) == int(coordonnate[0]) and int(result[1]) == int(coordonnate[1]):
+                    city = cities[str(v + 1)]["city"]
+                    print('City -> ' + city)
+
+            return city
+        except (OSError, IOError) as e:
+            print("Error: " + str(e) + '!')
+
     def distance_between(self, tour, cities, i, j):
         lengthOfCity = int(len(cities))
         cordonnate = self.getCoordonateOfData(cities)
@@ -170,16 +193,25 @@ class ManagerApp:
         ) for k in range(lengthOfCity)])
 
     # return list of tour choose in the sequence of element, I use this to get a random random sampling without replacement.
-
     def generateTour(self, cities):
         try:
             lengthOfCity = int(len(cities))
-            return random.sample(range(lengthOfCity), lengthOfCity)
+            tour = []
+            for i in range(0, lengthOfCity):
+                tour.append(i)
+
+            random.shuffle(tour)
+            tour.remove(self.depart)
+            tour.insert(0, self.depart)
+            tour.insert(lengthOfCity, self.depart)
+
+            return tour
 
         except (OSError, IOError) as e:
             print("Error: " + str(e) + '!')
 
     # this function is used to retreive the distance of the lowest tour that the vehicle realized
+
     def generateGoodTour(self, cities, nbrOfTour):
         best_tour = self.generateTour(cities)
         lowest = self.distance(best_tour, cities)
@@ -216,7 +248,22 @@ class ManagerApp:
         ret.append(arr[(start + nb_elements) % arr_len])
         return ret
 
+    # def report(what):
+    #     report_file.write(what + "\n")
+
+    def live_plot(tour, cities):
+        city_count = len(cities)
+        cities_x = [cities[tour[i % city_count]][0]
+                    for i in range(city_count + 1)]
+        cities_y = [cities[tour[i % city_count]][1]
+                    for i in range(city_count + 1)]
+
+        plt.clf()
+        plt.plot(cities_x, cities_y, 'xb-')
+        plt.pause(0.1)
+
     # I used this function to get the distance between two cities at a specific index
+
     def divideDeliveryBetweenTruck(self):
         cities = self.getCities()
 
@@ -224,13 +271,18 @@ class ManagerApp:
         tour = self.generateGoodTour(
             cities['cities'], self.getNumberOfIteration())
 
+        # this tour correspond to the distance of lowest tour
         tour_distance = self.distance(tour, cities['cities'])
 
         position_first_city = tour.index(0)
         position_relative_next_stop_city = 0
+        # this tour correspond to the lowest tour
         initial_tour = copy.copy(tour)
 
-        for truck in range(self.getNumberOfTruck()-1):
+        print("best: ", initial_tour)
+        print("tour_distance: ", tour_distance)
+
+        for truck in range(self.getNumberOfTruck()):
             distance_cumulee = 0
             while distance_cumulee < (tour_distance / self.getNumberOfTruck()):
                 curr = initial_tour[(
@@ -243,26 +295,67 @@ class ManagerApp:
             tour.insert(
                 (position_first_city + position_relative_next_stop_city) % lengthOfCity, 0)
 
+        # this tour correspond to the lowest tour
+        print("tour that different camion have to do: ", tour)
         if self.getNumberOfTruck() > 1:
             # On insère le dernier tour
             zero_positions = [i for i, e in enumerate(tour) if e == 0]
             number_zeros = int(len(zero_positions))
             plt.clf()
 
+            cordonnate = self.getCoordonateOfData(cities['cities'])
+
+            print("number_zeros : ", number_zeros)
+            print("zero_positions : ", zero_positions)
+
+            plt.title('Presentation of different tour of truck with Matplotlib')
+            plt.xlabel('x')
+            plt.ylabel('y')
+
             for zero_pos_i in range(number_zeros):
-                tour_start_index = zero_positions[zero_pos_i]
-                tour_end_index = zero_positions[(
-                    zero_pos_i + 1) % number_zeros]
-                truck_tour = self.getArrayByLoop(
-                    tour, tour_start_index, tour_end_index)
-                truck_tour_len = int(len(truck_tour))
+                try:
+                    tour_start_index = zero_positions[zero_pos_i]
+                    tour_end_index = zero_positions[(
+                        zero_pos_i + 1) % number_zeros]
+                    truck_tour = self.getArrayByLoop(
+                        tour, tour_start_index, tour_end_index)
+                    truck_tour_len = int(len(truck_tour))
 
-        cordonnate = self.getCoordonateOfData(cities['cities'])
+                    print("truck_tour: ", truck_tour)
+                    print("truck_tour_len: ", truck_tour_len)
+                    print('\n')
 
-        cordonnate_x = [cordonnate[truck_tour[i % truck_tour_len]][0]
-                        for i in range(truck_tour_len + 1)]
-        cordonnate_y = [cordonnate[truck_tour[i % truck_tour_len]][1]
-                        for i in range(truck_tour_len + 1)]
-        plt.plot(cordonnate_x, cordonnate_y, '-')
+                    cordonnate_x = []
+                    cordonnate_y = []
 
-        plt.pause(0.1)
+                    for i in range(truck_tour_len + 1):
+                        x = cordonnate[truck_tour[i % truck_tour_len]][0]
+                        y = cordonnate[truck_tour[i % truck_tour_len]][1]
+                        cordonnate_x.append(x)
+                        cordonnate_y.append(y)
+
+                        city = self.getCitiesByCoodonate(
+                            cities['cities'], np.array([x, y]))
+
+                        plt.annotate(
+                            city + " (" + str(x) + "," + str(y) + ") ", (x, y))
+
+                    # cordonnate_x = [cordonnate[truck_tour[i % truck_tour_len]][0]
+                    #                 for i in range(truck_tour_len + 1)]
+                    # cordonnate_y = [cordonnate[truck_tour[i % truck_tour_len]][1]
+                    #                 for i in range(truck_tour_len + 1)]
+
+                    # plt.annotate((), (city['pos'][0], city['pos'][1]))
+
+                    print("cordonnate_x: ", cordonnate_x)
+                    print("cordonnate_y: ", cordonnate_y)
+                    print('\n')
+                    # self.getCitiesByCoodonate(
+                    #     cities, np.array([cordonnate_x, cordonnate_y]))
+
+                    plt.plot(cordonnate_x, cordonnate_y, '-')
+                    # plt.plot(cordonnate_x, cordonnate_y, 'xb-')
+                    # plt.show()
+                    plt.pause(0.1)
+                except (OSError, IOError) as e:
+                    print("Error: " + str(e) + '!')
