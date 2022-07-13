@@ -1,6 +1,7 @@
 # Python code to generate
 # random numbers and random string
 import copy
+from datetime import date
 import math
 import random
 from re import A, X
@@ -13,6 +14,8 @@ import json
 import matplotlib.pyplot as plt
 import numpy as np
 import time
+
+from statStudy import StatStudy
 
 
 class ManagerApp:
@@ -35,6 +38,7 @@ class ManagerApp:
         self.cityFileName = "./dataset/cities/test.json"
         self.loadFile = "./dataset/load.json"
         self.depart = 0
+        self.statStudy = StatStudy()
 
     def __init__(self):
         self.numberOfCities = 0
@@ -46,6 +50,7 @@ class ManagerApp:
         self.cityFileName = "./dataset/cities/test.json"
         self.loadFile = "./dataset/load.json"
         self.depart = 0
+        self.statStudy = StatStudy()
 
     def loadData(self):
         try:
@@ -68,6 +73,16 @@ class ManagerApp:
             print("Error: " + str(e) + '!')
             return False
 
+    def loadFileForStat(self):
+        try:
+            with open("./dataset/stats/distanceOfTour.json", encoding="utf8") as json_file:
+                data = json.load(json_file)
+                return data
+
+        except(OSError, IOError) as e:
+            print("Error: " + str(e) + '!')
+            return {}
+
     def saveData(self):
         try:
             data = {}
@@ -87,6 +102,21 @@ class ManagerApp:
         except(OSError, IOError) as e:
             print("Error: " + str(e) + '!')
             return False
+
+    def saveFileForStat(self, tour, distance):
+        try:
+            data = self.loadFileForStat()
+
+            data[int(len(data))] = {
+                str('tour'): tour,
+                str('distance'): distance
+            }
+
+            with open("./dataset/stats/distanceOfTour.json", 'w') as outfile:
+                json.dump(data, outfile)
+
+        except(OSError, IOError) as e:
+            print("Error: " + str(e) + '!')
 
     # Adds an instance variable
 
@@ -219,6 +249,9 @@ class ManagerApp:
             print('tour : ', tour)
             print('distance : ', dist)
             print('\n')
+
+            self.saveFileForStat(tour, dist)
+
             if dist < lowest:
                 lowest = dist
                 best_tour = copy.copy(tour)
@@ -247,19 +280,7 @@ class ManagerApp:
     # def report(what):
     #     report_file.write(what + "\n")
 
-    def live_plot(tour, cities):
-        city_count = len(cities)
-        cities_x = [cities[tour[i % city_count]][0]
-                    for i in range(city_count + 1)]
-        cities_y = [cities[tour[i % city_count]][1]
-                    for i in range(city_count + 1)]
-
-        plt.clf()
-        plt.plot(cities_x, cities_y, 'xb-')
-        plt.pause(0.1)
-
     # I used this function to get the distance between two cities at a specific index
-
     def divideDeliveryBetweenTruck(self):
         cities = self.getCities()
 
@@ -308,6 +329,15 @@ class ManagerApp:
             plt.xlabel('x')
             plt.ylabel('y')
 
+            distance = []
+            val = self.loadFileForStat()
+            count = int(len(val))
+            for i in range(0, count - 1):
+                result = val[str(i + 1)]["distance"]
+                distance.append(result)
+
+            self.statStudy.realise(distance)
+
             for zero_pos_i in range(number_zeros):
                 try:
                     tour_start_index = zero_positions[zero_pos_i]
@@ -325,16 +355,17 @@ class ManagerApp:
                     cordonnate_y = []
 
                     for i in range(truck_tour_len + 1):
-                        x = cordonnate[truck_tour[i % truck_tour_len]][0]
-                        y = cordonnate[truck_tour[i % truck_tour_len]][1]
-                        cordonnate_x.append(x)
-                        cordonnate_y.append(y)
+                        if truck_tour_len > 0:
+                            x = cordonnate[truck_tour[i % truck_tour_len]][0]
+                            y = cordonnate[truck_tour[i % truck_tour_len]][1]
+                            cordonnate_x.append(x)
+                            cordonnate_y.append(y)
 
-                        city = self.getCitiesByCoodonate(
-                            cities['cities'], np.array([x, y]))
+                            city = self.getCitiesByCoodonate(
+                                cities['cities'], np.array([x, y]))
 
-                        plt.annotate(
-                            city + " (" + str(x) + "," + str(y) + ") ", (x, y))
+                            plt.annotate(
+                                city + " (" + str(x) + "," + str(y) + ") ", (x, y))
 
                     # cordonnate_x = [cordonnate[truck_tour[i % truck_tour_len]][0]
                     #                 for i in range(truck_tour_len + 1)]
@@ -351,7 +382,7 @@ class ManagerApp:
 
                     plt.plot(cordonnate_x, cordonnate_y, '-')
                     graphFileName = str(
-                        "./dataset/graphs/graph" + str(zero_pos_i) + '.png')
+                        "./dataset/graphs/graph" + str(time.monotonic_ns()) + '.png')
                     plt.savefig(graphFileName)
                     plt.pause(0.1)
                 except (OSError, IOError) as e:
