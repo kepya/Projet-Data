@@ -15,14 +15,14 @@ import time
 
 
 class ManagerApp:
-    numberOfCities = 0
-    numberOfTruck = 0
-    numberOfIteration = 0
-    numberOfLetterOfCity = 0
-    numberOfObjetDeliverByTruck = 0
-    numberOfEachObjetDeliverByTruck = 0
-    cityFileName = ""
-    loadFile = "./dataset/load.json"
+    # numberOfCities = 0
+    # numberOfTruck = 0
+    # numberOfIteration = 0
+    # numberOfLetterOfCity = 0
+    # numberOfObjetDeliverByTruck = 0
+    # numberOfEachObjetDeliverByTruck = 0
+    # cityFileName = ""
+    # loadFile = "./dataset/load.json"
 
     def __init__(self, numberOfCities, numberOfTruck, numberOfLetterOfCity, numberOfObjetDeliverByTruck, numberOfEachObjetDeliverByTruck):
         self.numberOfCities = numberOfCities
@@ -130,7 +130,6 @@ class ManagerApp:
         return self.numberOfIteration
 
     def getCities(self):
-        print('okkkkk: ', self.cityFileName)
         try:
             with open(self.cityFileName, encoding="utf8") as json_file:
                 cityWithCoordonate = json.load(json_file)
@@ -201,7 +200,8 @@ class ManagerApp:
         print('\n')
         return best_tour
 
-    def array_part_loop(arr, start, end):
+    def getArrayByLoop(self, arr, start, end):
+        print('laoo')
         arr_len = len(arr)
         ret = []
 
@@ -220,8 +220,10 @@ class ManagerApp:
     # I used this function to get the distance between two cities at a specific index
     def divideDeliveryBetweenTruck(self):
         cities = self.getCities()
+
         lengthOfCity = int(len(cities['cities']))
-        tour = self.generateGoodTour(cities['cities'], 1000)
+        tour = self.generateGoodTour(
+            cities['cities'], self.getNumberOfIteration())
 
         tour_distance = self.distance(tour, cities['cities'])
 
@@ -229,11 +231,9 @@ class ManagerApp:
         position_relative_next_stop_city = 0
         initial_tour = copy.copy(tour)
 
-        print('truck : ', self.numberOfTruck)
-
-        for truck in range(self.numberOfTruck-1):
+        for truck in range(self.getNumberOfTruck()-1):
             distance_cumulee = 0
-            while distance_cumulee < (tour_distance / self.numberOfTruck):
+            while distance_cumulee < (tour_distance / self.getNumberOfTruck()):
                 curr = initial_tour[(
                     position_first_city + position_relative_next_stop_city) % lengthOfCity]
                 distance = self.distance_to_next(
@@ -244,20 +244,21 @@ class ManagerApp:
             tour.insert(
                 (position_first_city + position_relative_next_stop_city) % lengthOfCity, 0)
 
-        if self.numberOfTruck > 1:
+        if self.getNumberOfTruck() > 1:
             # On insère le dernier tour
             zero_positions = [i for i, e in enumerate(tour) if e == 0]
-            number_zeros = len(zero_positions)
+            number_zeros = int(len(zero_positions))
             plt.clf()
 
-            for zero_pos_i in range(len(zero_positions)):
+            for zero_pos_i in range(number_zeros):
                 tour_start_index = zero_positions[zero_pos_i]
                 tour_end_index = zero_positions[(
                     zero_pos_i + 1) % number_zeros]
-                truck_tour = self.array_part_loop(
+                truck_tour = self.getArrayByLoop(
                     tour, tour_start_index, tour_end_index)
-                truck_tour_len = len(truck_tour)
+                truck_tour_len = int(len(truck_tour))
 
+        print("pyuy oo *** yes")
         cities['coordinated'][0] = [cities['coordinated'][truck_tour[i % truck_tour_len]][0]
                                     for i in range(truck_tour_len + 1)]
         cities['coordinated'][1] = [cities['coordinated'][truck_tour[i % truck_tour_len]][1]

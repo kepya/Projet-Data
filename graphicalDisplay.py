@@ -62,13 +62,23 @@ layouts = [
 
 # Create the window
 window = sg.Window("Big Data Project : Group 2", layouts)
+manager = ManagerApp()
+generateCity = GenerateCity()
+showGraph = ShowGraph()
+
+
+def main():
+    manager = ManagerApp()
+    generateCity = GenerateCity()
+    print("Start main")
+
 
 # Create an event loop
 while True:
     event, values = window.read()
-    manager = ManagerApp()
-    generateCity = GenerateCity()
-    showGraph = ShowGraph()
+    # manager = ManagerApp()
+    # generateCity = GenerateCity()
+    # showGraph = ShowGraph()
     cityFileName = "./dataset/cities/test.json"
 
     # End program if user closes window or
