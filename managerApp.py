@@ -14,6 +14,7 @@ import json
 import matplotlib.pyplot as plt
 import numpy as np
 import time
+from showGraph import ShowGraph
 
 from statStudy import StatStudy
 
@@ -39,6 +40,7 @@ class ManagerApp:
         self.loadFile = "./dataset/load.json"
         self.depart = 0
         self.statStudy = StatStudy()
+        self.showGraph = ShowGraph()
 
     def __init__(self):
         self.numberOfCities = 0
@@ -51,6 +53,7 @@ class ManagerApp:
         self.loadFile = "./dataset/load.json"
         self.depart = 0
         self.statStudy = StatStudy()
+        self.showGraph = ShowGraph()
 
     def loadData(self):
         try:
@@ -348,6 +351,12 @@ class ManagerApp:
             self.statStudy.realise(distance, "distance")
             self.statStudy.realise(times, "time")
             self.statStudy.realise(iterations, "iteration")
+
+            self.showGraph.display(
+                distance, times, "Distance", "Time", "Distance versus time")
+
+            self.showGraph.display(
+                times, iterations, "Time", "Iteration", "Time versus Iteration")
 
             for zero_pos_i in range(number_zeros):
                 try:
