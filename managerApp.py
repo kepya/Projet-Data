@@ -103,13 +103,15 @@ class ManagerApp:
             print("Error: " + str(e) + '!')
             return False
 
-    def saveFileForStat(self, tour, distance):
+    def saveFileForStat(self, tour, distance, time, iteration):
         try:
             data = self.loadFileForStat()
 
             data[int(len(data))] = {
                 str('tour'): tour,
-                str('distance'): distance
+                str('distance'): distance,
+                str('time'): time,
+                str('iteration'): iteration
             }
 
             with open("./dataset/stats/distanceOfTour.json", 'w') as outfile:
@@ -242,6 +244,7 @@ class ManagerApp:
         best_tour = self.generateTour(cities)
         lowest = self.distance(best_tour, cities)
         print('\n')
+        startT = time.time()
 
         for i in range(nbrOfTour):
             tour = self.generateTour(cities)
@@ -250,7 +253,8 @@ class ManagerApp:
             print('distance : ', dist)
             print('\n')
 
-            self.saveFileForStat(tour, dist)
+            self.saveFileForStat(tour, dist, time.time() - startT, i + 1)
+            startT = time.time()
 
             if dist < lowest:
                 lowest = dist
@@ -330,13 +334,20 @@ class ManagerApp:
             plt.ylabel('y')
 
             distance = []
+            times = []
+            iterations = []
+
             val = self.loadFileForStat()
             count = int(len(val))
             for i in range(0, count - 1):
                 result = val[str(i + 1)]["distance"]
                 distance.append(result)
+                times.append(val[str(i + 1)]["time"])
+                iterations.append(val[str(i + 1)]["iteration"])
 
-            self.statStudy.realise(distance)
+            self.statStudy.realise(distance, "distance")
+            self.statStudy.realise(times, "time")
+            self.statStudy.realise(iterations, "iteration")
 
             for zero_pos_i in range(number_zeros):
                 try:
