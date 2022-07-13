@@ -201,7 +201,6 @@ class ManagerApp:
         return best_tour
 
     def getArrayByLoop(self, arr, start, end):
-        print('laoo')
         arr_len = len(arr)
         ret = []
 
@@ -258,15 +257,12 @@ class ManagerApp:
                     tour, tour_start_index, tour_end_index)
                 truck_tour_len = int(len(truck_tour))
 
-        print("pyuy oo *** yes")
-        cities['coordinated'][0] = [cities['coordinated'][truck_tour[i % truck_tour_len]][0]
-                                    for i in range(truck_tour_len + 1)]
-        cities['coordinated'][1] = [cities['coordinated'][truck_tour[i % truck_tour_len]][1]
-                                    for i in range(truck_tour_len + 1)]
-        plt.plot(cities['coordinated'][0],
-                 cities['coordinated'][1], '-')
+        cordonnate = self.getCoordonateOfData(cities['cities'])
+
+        cordonnate_x = [cordonnate[truck_tour[i % truck_tour_len]][0]
+                        for i in range(truck_tour_len + 1)]
+        cordonnate_y = [cordonnate[truck_tour[i % truck_tour_len]][1]
+                        for i in range(truck_tour_len + 1)]
+        plt.plot(cordonnate_x, cordonnate_y, '-')
 
         plt.pause(0.1)
-
-        while True:
-            time.sleep(1)
