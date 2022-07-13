@@ -19,7 +19,6 @@ leftLay = [
     [sg.Text("A. Menu of Group 2", font=("Bell MT", 15))],
     [sg.Text("\t1.  Set up environment", font=("Bell MT", 15))],
     [sg.Text("\t2.  Start generation of road", font=("Bell MT", 15))],
-    [sg.Text("\t3.  View statistic result", font=("Bell MT", 15))],
     [sg.Text("Choose your option", font=("Bell MT", 15))],
     [sg.InputText(font=("Bell MT", 15)), sg.Button(
         'choose', font=("Bell MT", 15))],
@@ -110,7 +109,7 @@ while True:
         except (OSError, IOError) as e:
             print("Error: " + str(e) + '!')
             window['errorChooseMenu'].Update(
-                "Please enter number between 1 and 3")
+                "Please enter number between 1 and 2")
 
     elif event == "Validate":
         if values["numberOfCities"] and values["numberOfLetterOfCity"] and values["numberOfTruck"] and values["numberOfIteration"]:
