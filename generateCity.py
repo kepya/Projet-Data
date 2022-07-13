@@ -57,5 +57,5 @@ class GenerateCity:
     def saveCitiesAndCoordonateToJsonFile(self, nameOfFile):
         fileName = str('dataset/cities/' + nameOfFile + '.json')
 
-        with open(fileName, 'a') as outfile:
+        with open(fileName, 'w') as outfile:
             json.dump(self.citiesWithCoordonate, outfile)
