@@ -37,7 +37,6 @@ class ShowGraph:
         self.graphName = "graph"
 
     def display(self):
-        print('oookkkk')
         try:
             with open(self.fileOfCity, encoding="utf8") as json_file:
                 cityWithCoordonate = json.load(json_file)
