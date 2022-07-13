@@ -64,6 +64,7 @@ while True:
     manager = ManagerApp()
     generateCity = GenerateCity()
     showGraph = ShowGraph()
+    cityFileName = "./dataset/cities/test.json"
 
     # End program if user closes window or
     # presses the OK button
@@ -80,7 +81,8 @@ while True:
                 window['rightLay'].Update(visible=True)
             elif option == 2:
                 showGraph.display()
-                print('You entered ')
+                # result = manager.divideDeliveryBetweenTruck()
+                # print('result', result)
                 window['errorChooseMenu'].Update(
                     "")
         except:
@@ -132,6 +134,8 @@ while True:
                 generateCity.fillCitiesAndCoordonate()
                 filename = sg.PopupGetText(
                     "Enter name of file that we use to store cities with her cordonnate", font=("Bell MT", 15))
+                cityFileName = filename
+                manager.setCityFileName(filename)
                 generateCity.saveCitiesAndCoordonateToJsonFile(filename)
                 sg.PopupOK('Cities generate',
                            ' Cities generate succefully !!', font=("Bell MT", 15))
