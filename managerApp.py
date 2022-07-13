@@ -153,16 +153,12 @@ class ManagerApp:
         return col
 
     def getCitiesByCoodonate(self, cities, coordonnate):
-        print("test 3 : ", coordonnate)
-        print("test 3 : ", coordonnate[0])
         try:
             lengthOfCity = int(len(cities))
             city = ""
 
             for v in range(lengthOfCity):
                 result = cities[str(v + 1)]["coordinated"]
-                print('result: ', result)
-                print('result: ', result[0])
 
                 if int(result[0]) == int(coordonnate[0]) and int(result[1]) == int(coordonnate[1]):
                     city = cities[str(v + 1)]["city"]
@@ -354,8 +350,9 @@ class ManagerApp:
                     #     cities, np.array([cordonnate_x, cordonnate_y]))
 
                     plt.plot(cordonnate_x, cordonnate_y, '-')
-                    # plt.plot(cordonnate_x, cordonnate_y, 'xb-')
-                    # plt.show()
+                    graphFileName = str(
+                        "./dataset/graphs/graph" + str(zero_pos_i) + '.png')
+                    plt.savefig(graphFileName)
                     plt.pause(0.1)
                 except (OSError, IOError) as e:
                     print("Error: " + str(e) + '!')

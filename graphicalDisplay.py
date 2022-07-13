@@ -108,7 +108,8 @@ while True:
                 manager.divideDeliveryBetweenTruck()
                 window['errorChooseMenu'].Update(
                     "")
-        except:
+        except (OSError, IOError) as e:
+            print("Error: " + str(e) + '!')
             window['errorChooseMenu'].Update(
                 "Please enter number between 1 and 3")
 
