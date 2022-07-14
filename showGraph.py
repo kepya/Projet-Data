@@ -30,7 +30,7 @@ class ShowGraph:
             if not os.path.exists(self.storageOfGraph):
                 os.makedirs(self.storageOfGraph)
 
-            plt.plot(abscisse, ordonne,  'xb-')
+            plt.bar(abscisse, ordonne)
             graphFileName = str(self.storageOfGraph +
                                 "/" + self.graphName + str(time.monotonic_ns()) + '.png')
             plt.savefig(graphFileName)

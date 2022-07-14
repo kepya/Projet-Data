@@ -15,8 +15,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import time
 from showGraph import ShowGraph
-
 from statStudy import StatStudy
+
+import psutil
+import os
+
+memory = psutil.Process(os.getpid()).memory_info
 
 
 class ManagerApp:
@@ -41,6 +45,11 @@ class ManagerApp:
         self.depart = 0
         self.statStudy = StatStudy()
         self.showGraph = ShowGraph()
+        self.startT = None
+        self.distances = []
+        self.times = []
+        self.iterations = []
+        self.memories = []
 
     def __init__(self):
         self.numberOfCities = 0
@@ -54,6 +63,11 @@ class ManagerApp:
         self.depart = 0
         self.statStudy = StatStudy()
         self.showGraph = ShowGraph()
+        self.startT = None
+        self.distances = []
+        self.times = []
+        self.iterations = []
+        self.memories = []
 
     def loadData(self):
         try:
@@ -106,7 +120,7 @@ class ManagerApp:
             print("Error: " + str(e) + '!')
             return False
 
-    def saveFileForStat(self, tour, distance, time, iteration):
+    def saveFileForStat(self, tour, distance, time, iteration, memory):
         try:
             data = self.loadFileForStat()
 
@@ -114,7 +128,8 @@ class ManagerApp:
                 str('tour'): tour,
                 str('distance'): distance,
                 str('time'): time,
-                str('iteration'): iteration
+                str('iteration'): iteration,
+                str('memory'): iteration
             }
 
             with open("./dataset/stats/distanceOfTour.json", 'w') as outfile:
@@ -247,7 +262,6 @@ class ManagerApp:
         best_tour = self.generateTour(cities)
         lowest = self.distance(best_tour, cities)
         print('\n')
-        startT = time.time()
 
         for i in range(nbrOfTour):
             tour = self.generateTour(cities)
@@ -255,9 +269,14 @@ class ManagerApp:
             print('tour : ', tour)
             print('distance : ', dist)
             print('\n')
+            seconds = time.time() - self.startT
+            test = "Iteration: " + str(i + 1) + "\n" + "New distance: {:10.4f}".format(dist) + "\n" + "Best distance: {:10.4f}".format(
+                lowest) + "Memory used: " + str(memory().rss) + "Elapsed: {:10.4f}s".format(seconds) + "\n\n"
 
-            self.saveFileForStat(tour, dist, time.time() - startT, i + 1)
-            startT = time.time()
+            self.statStudy.report(
+                '*********************************Report of Information'"******************************", "report")
+            self.saveFileForStat(tour, dist, seconds, i + 1, memory().rss)
+            # startT = time.time()
 
             if dist < lowest:
                 lowest = dist
@@ -289,6 +308,7 @@ class ManagerApp:
 
     # I used this function to get the distance between two cities at a specific index
     def divideDeliveryBetweenTruck(self):
+        self.startT = time.time()
         cities = self.getCities()
 
         lengthOfCity = int(len(cities['cities']))
@@ -336,27 +356,14 @@ class ManagerApp:
             plt.xlabel('x')
             plt.ylabel('y')
 
-            distance = []
-            times = []
-            iterations = []
-
             val = self.loadFileForStat()
             count = int(len(val))
             for i in range(0, count - 1):
                 result = val[str(i + 1)]["distance"]
-                distance.append(result)
-                times.append(val[str(i + 1)]["time"])
-                iterations.append(val[str(i + 1)]["iteration"])
-
-            self.statStudy.realise(distance, "distance")
-            self.statStudy.realise(times, "time")
-            self.statStudy.realise(iterations, "iteration")
-
-            self.showGraph.display(
-                distance, times, "Distance", "Time", "Distance versus time")
-
-            self.showGraph.display(
-                times, iterations, "Time", "Iteration", "Time versus Iteration")
+                self.distances.append(result)
+                self.times.append(val[str(i + 1)]["time"])
+                self.iterations.append(val[str(i + 1)]["iteration"])
+                self.memories.append(val[str(i + 1)]["iteration"])
 
             for zero_pos_i in range(number_zeros):
                 try:
@@ -387,18 +394,9 @@ class ManagerApp:
                             plt.annotate(
                                 city + " (" + str(x) + "," + str(y) + ") ", (x, y))
 
-                    # cordonnate_x = [cordonnate[truck_tour[i % truck_tour_len]][0]
-                    #                 for i in range(truck_tour_len + 1)]
-                    # cordonnate_y = [cordonnate[truck_tour[i % truck_tour_len]][1]
-                    #                 for i in range(truck_tour_len + 1)]
-
-                    # plt.annotate((), (city['pos'][0], city['pos'][1]))
-
                     print("cordonnate_x: ", cordonnate_x)
                     print("cordonnate_y: ", cordonnate_y)
                     print('\n')
-                    # self.getCitiesByCoodonate(
-                    #     cities, np.array([cordonnate_x, cordonnate_y]))
 
                     plt.plot(cordonnate_x, cordonnate_y, '-')
                     graphFileName = str(
@@ -407,3 +405,20 @@ class ManagerApp:
                     plt.pause(0.1)
                 except (OSError, IOError) as e:
                     print("Error: " + str(e) + '!')
+
+            plt.show()
+
+    def displayStatGraph(self):
+        self.statStudy.realise(self.distances, "distance")
+        self.statStudy.realise(self.times, "time")
+        self.statStudy.realise(self.iterations, "iteration")
+        self.statStudy.realise(self.memories, "memory")
+
+        self.showGraph.display(
+            self.memories, self.times, "CPU", "Time", "CPU charge versus Time")
+
+        self.showGraph.display(
+            self.distances, self.times, "Distance", "Time", "Distance versus time")
+
+        self.showGraph.display(
+            self.times, self.iterations, "Time", "Iteration", "Time versus Iteration")

@@ -1,0 +1,282 @@
+
+
+*********************************Stat of distance******************************
+La moyenne de la serie est : 1227.4509151248305
+Le minimum de la serie est : 1087.314231447187
+Le maximum de la serie est : 1372.1243078845741
+La médiane de la serie est : 1255.4473278116236
+Le 1er quartile de la serie est : 1141.2469238131923
+Le 2ème quartile de la serie est : 1255.4473278116236
+Le 3è quartile de la serie est : 1271.5058671661088
+La variance de la serie est : 8115.934153531011
+L'écart type de de la serie est :90.08847958274694
+
+
+
+
+*********************************Stat of time******************************
+La moyenne de la serie est : 0.02571249008178711
+Le minimum de la serie est : 0.003997087478637695
+Le maximum de la serie est : 0.053998470306396484
+La médiane de la serie est : 0.022995710372924805
+Le 1er quartile de la serie est : 0.008248448371887207
+Le 2ème quartile de la serie est : 0.022995710372924805
+Le 3è quartile de la serie est : 0.03799623250961304
+La variance de la serie est : 0.0003023324850265193
+L'écart type de de la serie est :0.017387710747148958
+
+
+
+
+*********************************Stat of iteration******************************
+La moyenne de la serie est : 3.142857142857143
+Le minimum de la serie est : 1
+Le maximum de la serie est : 5
+La médiane de la serie est : 3.0
+Le 1er quartile de la serie est : 2.0
+Le 2ème quartile de la serie est : 3.0
+Le 3è quartile de la serie est : 4.0
+La variance de la serie est : 1.836734693877551
+L'écart type de de la serie est :1.355261854357877
+
+
+
+
+*********************************Stat of memory******************************
+La moyenne de la serie est : 3.142857142857143
+Le minimum de la serie est : 1
+Le maximum de la serie est : 5
+La médiane de la serie est : 3.0
+Le 1er quartile de la serie est : 2.0
+Le 2ème quartile de la serie est : 3.0
+Le 3è quartile de la serie est : 4.0
+La variance de la serie est : 1.836734693877551
+L'écart type de de la serie est :1.355261854357877
+
+
+
+
+*********************************Stat of distance******************************
+La moyenne de la serie est : 1205.5889721398921
+Le minimum de la serie est : 992.8221933589248
+Le maximum de la serie est : 1372.1243078845741
+La médiane de la serie est : 1237.1343956626904
+Le 1er quartile de la serie est : 1111.1291262783366
+Le 2ème quartile de la serie est : 1237.1343956626904
+Le 3è quartile de la serie est : 1269.4411357329168
+La variance de la serie est : 10490.849393177743
+L'écart type de de la serie est :102.42484753797656
+
+
+
+
+*********************************Stat of time******************************
+La moyenne de la serie est : 0.026366246374029862
+Le minimum de la serie est : 0.0019969940185546875
+Le maximum de la serie est : 0.06099534034729004
+La médiane de la serie est : 0.02299809455871582
+Le 1er quartile de la serie est : 0.008497476577758789
+Le 2ème quartile de la serie est : 0.02299809455871582
+Le 3è quartile de la serie est : 0.0414959192276001
+La variance de la serie est : 0.00035189442103198326
+L'écart type de de la serie est :0.01875884913932577
+
+
+
+
+*********************************Stat of iteration******************************
+La moyenne de la serie est : 3.1052631578947367
+Le minimum de la serie est : 1
+Le maximum de la serie est : 5
+La médiane de la serie est : 3.0
+Le 1er quartile de la serie est : 2.0
+Le 2ème quartile de la serie est : 3.0
+Le 3è quartile de la serie est : 4.0
+La variance de la serie est : 1.8836565096952906
+L'écart type de de la serie est :1.372463664253189
+
+
+
+
+*********************************Stat of memory******************************
+La moyenne de la serie est : 3.1052631578947367
+Le minimum de la serie est : 1
+Le maximum de la serie est : 5
+La médiane de la serie est : 3.0
+Le 1er quartile de la serie est : 2.0
+Le 2ème quartile de la serie est : 3.0
+Le 3è quartile de la serie est : 4.0
+La variance de la serie est : 1.8836565096952906
+L'écart type de de la serie est :1.372463664253189
+
+
+
+
+*********************************Stat of distance******************************
+La moyenne de la serie est : 1200.2867240466965
+Le minimum de la serie est : 992.8221933589248
+Le maximum de la serie est : 1372.1243078845741
+La médiane de la serie est : 1219.002432324334
+Le 1er quartile de la serie est : 1117.6158923365479
+Le 2ème quartile de la serie est : 1219.002432324334
+Le 3è quartile de la serie est : 1267.376404299725
+La variance de la serie est : 9274.592462859348
+L'écart type de de la serie est :96.30468557063746
+
+
+
+
+*********************************Stat of time******************************
+La moyenne de la serie est : 0.026455591122309368
+Le minimum de la serie est : 0.0019969940185546875
+Le maximum de la serie est : 0.06099534034729004
+La médiane de la serie est : 0.02349686622619629
+Le 1er quartile de la serie est : 0.008745729923248291
+Le 2ème quartile de la serie est : 0.02349686622619629
+Le 3è quartile de la serie est : 0.041243791580200195
+La variance de la serie est : 0.00036356800271628324
+L'écart type de de la serie est :0.019067459262216434
+
+
+
+
+*********************************Stat of iteration******************************
+La moyenne de la serie est : 3.0833333333333335
+Le minimum de la serie est : 1
+Le maximum de la serie est : 5
+La médiane de la serie est : 3.0
+Le 1er quartile de la serie est : 2.0
+Le 2ème quartile de la serie est : 3.0
+Le 3è quartile de la serie est : 4.0
+La variance de la serie est : 1.9097222222222223
+L'écart type de de la serie est :1.3819269959814167
+
+
+
+
+*********************************Stat of memory******************************
+La moyenne de la serie est : 3.0833333333333335
+Le minimum de la serie est : 1
+Le maximum de la serie est : 5
+La médiane de la serie est : 3.0
+Le 1er quartile de la serie est : 2.0
+Le 2ème quartile de la serie est : 3.0
+Le 3è quartile de la serie est : 4.0
+La variance de la serie est : 1.9097222222222223
+L'écart type de de la serie est :1.3819269959814167
+
+
+
+
+*********************************Stat of distance******************************
+La moyenne de la serie est : 1194.8568953281454
+Le minimum de la serie est : 903.3690643001054
+Le maximum de la serie est : 1372.1243078845741
+La médiane de la serie est : 1206.0956280868377
+Le 1er quartile de la serie est : 1119.6306890553105
+Le 2ème quartile de la serie est : 1206.0956280868377
+Le 3è quartile de la serie est : 1265.3116728665332
+La variance de la serie est : 11601.46287745786
+L'écart type de de la serie est :107.71008716669883
+
+
+
+
+*********************************Stat of time******************************
+La moyenne de la serie est : 0.026891132880901468
+Le minimum de la serie est : 0.0019822120666503906
+Le maximum de la serie est : 0.06298041343688965
+La médiane de la serie est : 0.023995637893676758
+Le 1er quartile de la serie est : 0.008994817733764648
+Le 2ème quartile de la serie est : 0.023995637893676758
+Le 3è quartile de la serie est : 0.043981313705444336
+La variance de la serie est : 0.00038730681678033273
+L'écart type de de la serie est :0.019680112214627555
+
+
+
+
+*********************************Stat of iteration******************************
+La moyenne de la serie est : 3.0689655172413794
+Le minimum de la serie est : 1
+Le maximum de la serie est : 5
+La médiane de la serie est : 3.0
+Le 1er quartile de la serie est : 2.0
+Le 2ème quartile de la serie est : 3.0
+Le 3è quartile de la serie est : 4.0
+La variance de la serie est : 1.92627824019025
+L'écart type de de la serie est :1.3879042618964212
+
+
+
+
+*********************************Stat of memory******************************
+La moyenne de la serie est : 3.0689655172413794
+Le minimum de la serie est : 1
+Le maximum de la serie est : 5
+La médiane de la serie est : 3.0
+Le 1er quartile de la serie est : 2.0
+Le 2ème quartile de la serie est : 3.0
+Le 3è quartile de la serie est : 4.0
+La variance de la serie est : 1.92627824019025
+L'écart type de de la serie est :1.3879042618964212
+
+
+
+
+*********************************Stat of distance******************************
+La moyenne de la serie est : 1194.8568953281454
+Le minimum de la serie est : 903.3690643001054
+Le maximum de la serie est : 1372.1243078845741
+La médiane de la serie est : 1206.0956280868377
+Le 1er quartile de la serie est : 1119.6306890553105
+Le 2ème quartile de la serie est : 1206.0956280868377
+Le 3è quartile de la serie est : 1265.3116728665332
+La variance de la serie est : 11601.46287745786
+L'écart type de de la serie est :107.71008716669883
+
+
+
+
+*********************************Stat of time******************************
+La moyenne de la serie est : 0.026891132880901468
+Le minimum de la serie est : 0.0019822120666503906
+Le maximum de la serie est : 0.06298041343688965
+La médiane de la serie est : 0.023995637893676758
+Le 1er quartile de la serie est : 0.008994817733764648
+Le 2ème quartile de la serie est : 0.023995637893676758
+Le 3è quartile de la serie est : 0.043981313705444336
+La variance de la serie est : 0.00038730681678033273
+L'écart type de de la serie est :0.019680112214627555
+
+
+
+
+*********************************Stat of iteration******************************
+La moyenne de la serie est : 3.0689655172413794
+Le minimum de la serie est : 1
+Le maximum de la serie est : 5
+La médiane de la serie est : 3.0
+Le 1er quartile de la serie est : 2.0
+Le 2ème quartile de la serie est : 3.0
+Le 3è quartile de la serie est : 4.0
+La variance de la serie est : 1.92627824019025
+L'écart type de de la serie est :1.3879042618964212
+
+
+
+
+*********************************Stat of memory******************************
+La moyenne de la serie est : 3.0689655172413794
+Le minimum de la serie est : 1
+Le maximum de la serie est : 5
+La médiane de la serie est : 3.0
+Le 1er quartile de la serie est : 2.0
+Le 2ème quartile de la serie est : 3.0
+Le 3è quartile de la serie est : 4.0
+La variance de la serie est : 1.92627824019025
+L'écart type de de la serie est :1.3879042618964212
+
+
+
+

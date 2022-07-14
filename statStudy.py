@@ -8,7 +8,7 @@ class StatStudy:
 
     def realise(self, value, fileName):
         try:
-            # Moyenne de la série
+            # Moyenne de la serie
             moyenne = np.mean(value)
             # Minimum
             minimum = min(value)
@@ -31,31 +31,62 @@ class StatStudy:
             print('\n')
             print('*********************************Stat of ' +
                   fileName + "******************************")
-            print("La moyenne de la série est :", moyenne)
-            print("Le minimum de la série est :", minimum)
-            print("Le maximum de la série est :", maximum)
-            print("La médiane de la série est :", mediane)
-            print("Le 1er quartile de la série est :", quartile_1)
-            print("Le 2ème quartile de la série est :", quartile_2)
-            print("Le 3è quartile de la série est :", quartile_3)
-            print("La variance de la série est :", variance)
-            print("L\'écart type de de la série est :", ecart_type)
+            print("La moyenne de la serie est :", moyenne)
+            print("Le minimum de la serie est :", minimum)
+            print("Le maximum de la serie est :", maximum)
+            print("La médiane de la serie est :", mediane)
+            print("Le 1er quartile de la serie est :", quartile_1)
+            print("Le 2ème quartile de la serie est :", quartile_2)
+            print("Le 3è quartile de la serie est :", quartile_3)
+            print("La variance de la serie est :", variance)
+            print("L\'écart type de de la serie est :", ecart_type)
             print('\n')
 
+            self.report('*********************************Stat of ' +
+                        fileName + "******************************", "reportStat")
+            self.report("La moyenne de la serie est : " +
+                        str(moyenne), "reportStat")
+            self.report("Le minimum de la serie est : " +
+                        str(minimum), "reportStat")
+            self.report("Le maximum de la serie est : " +
+                        str(maximum), "reportStat")
+            self.report("La médiane de la serie est : " +
+                        str(mediane), "reportStat")
+            self.report("Le 1er quartile de la serie est : " +
+                        str(quartile_1), "reportStat")
+            self.report("Le 2ème quartile de la serie est : " +
+                        str(quartile_2), "reportStat")
+            self.report("Le 3è quartile de la serie est : " +
+                        str(quartile_3), "reportStat")
+            self.report("La variance de la serie est : " +
+                        str(variance), "reportStat")
+            self.report("L\'écart type de de la serie est :" +
+                        str(ecart_type), "reportStat")
+            self.report("\n", "reportStat")
+            self.report("\n", "reportStat")
+
             data = {
-                str('La moyenne de la série'): moyenne,
-                str('Le minimum de la série'): minimum,
-                str('Le maximum de la série'): maximum,
-                str('La médiane de la série'): mediane,
-                str('Le 1er quartile de la série'): quartile_1,
-                str('Le 2ème quartile de la série'): quartile_2,
-                str('Le 3è quartile de la série'): quartile_3,
-                str('La variance de la série'): variance,
-                str('L\'écart type de de la série'): ecart_type,
+                str('La moyenne de la serie'): moyenne,
+                str('Le minimum de la serie'): minimum,
+                str('Le maximum de la serie'): maximum,
+                str('La médiane de la serie'): mediane,
+                str('Le 1er quartile de la serie'): quartile_1,
+                str('Le 2ème quartile de la serie'): quartile_2,
+                str('Le 3è quartile de la serie'): quartile_3,
+                str('La variance de la serie'): variance,
+                str('L\'écart type de de la serie'): ecart_type,
             }
 
-            with open("./dataset/stats/ " + str(fileName) + ".json", 'w') as outfile:
+            with open("./dataset/stats/json/ " + str(fileName) + ".json", 'w') as outfile:
                 json.dump(data, outfile)
 
+        except(OSError, IOError) as e:
+            print("Error: " + str(e) + '!')
+
+    def report(self, report, filename):
+        try:
+            report_file = open("./dataset/stats/textes/" +
+                               str(filename) + ".txt", "a")
+            report_file.write(report + "\n")
         except(OSError, IOError) as e:
             print("Error: " + str(e) + '!')
