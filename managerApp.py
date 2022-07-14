@@ -271,10 +271,11 @@ class ManagerApp:
             print('\n')
             seconds = time.time() - self.startT
             test = "Iteration: " + str(i + 1) + "\n" + "New distance: {:10.4f}".format(dist) + "\n" + "Best distance: {:10.4f}".format(
-                lowest) + "Memory used: " + str(memory().rss) + "Elapsed: {:10.4f}s".format(seconds) + "\n\n"
+                lowest) + "Memory used: " + str(memory().rss) + "\ntime: {:10.4f}s".format(seconds) + "\n\n"
 
             self.statStudy.report(
                 '*********************************Report of Information'"******************************", "report")
+            self.statStudy.report(test, "report")
             self.saveFileForStat(tour, dist, seconds, i + 1, memory().rss)
             # startT = time.time()
 
